@@ -41,7 +41,7 @@ fastapi-microservice/
 Клонируйте репозиторий:
 
 ```bash
-      git clone https://github.com/fastapi-reqres-clone.git
+      git clone https://github.com/illusionx11/fastapi-microservice.git
 ```
 
 Перейдите в каталог проекта:
