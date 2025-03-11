@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "email": "janet.weaver@fast.api",
+    "first_name": "Janet",
+    "last_name": "Weaver"
+  },
+  {
+    "id": 2,
+    "email": "andrew.green@fast.api",
+    "first_name": "Andrew",
+    "last_name": "Green"
+  },
+  {
+    "id": 3,
+    "email": "michael.smooth@reqres.in",
+    "first_name": "Michael",
+    "last_name": "Smooth"
+  },
+  {
+    "id": 4,
+    "email": "jennifer.smith@reqres.in",
+    "first_name": "Jennifer",
+    "last_name": "Smith"
+  }
+]
