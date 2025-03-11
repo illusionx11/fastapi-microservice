@@ -2,18 +2,17 @@
 
 ## Описание
 
-Этот проект реализует простое API с использованием FastAPI, которое имитирует сервис ReqRes (https://reqres.in), предоставляя основные функции для работы с пользователями (создание, получение, обновление и удаление).
+Простой микросервис по типу https://reqres.in, реализованный с помощью FastAPI. 
+Сервис предоставляет возможность совершать различные операции с пользователями:
+-Получить список пользователей
+-Получить пользователя по ID
+-Добавить пользователя
+-Изменить пользователя
+-Удалить пользователя
 
-Проект включает микросервис на FastAPI, который предоставляет следующие эндпоинты:
-- Получение списка пользователей
-- Получение информации о пользователе по ID
-- Создание нового пользователя
-- Обновление информации о пользователе
-- Удаление пользователя
+Для проверки качества микросервиса написаны автотесты.
 
 ## Структура проекта
-
-Проект состоит из одного файла:
 
 ```
 fastapi-microservice/
@@ -30,15 +29,10 @@ fastapi-microservice/
     └── conftest.py              # Конфигурационный файл pytest
     └── test_users.py            # Автотесты для проверки юзеров
     └── test_auth.py             # Автотесты для проверки авторизации (регистрация/логин)
-├── requirements.txt           # Зависимости проекта
-└── README.md                  # Документация
+├── requirements.txt             # Зависимости проекта
+└── README.md                    # Документация
 
 ```
-
-
-### Структура кода в `microservice.py`
-
-В `microservice.py` реализован код приложения FastAPI, который содержит все необходимые эндпоинты для работы с пользователями. Также добавлены примеры тестов для проверки работы API с использованием `pytest`.
 
 ## Установка
 
@@ -47,12 +41,12 @@ fastapi-microservice/
 
 Клонируйте репозиторий:
 
-   ```bash
+```bash
       git clone https://github.com/fastapi-reqres-clone.git
 ```
 Перейдите в каталог проекта:
 ```bash
-    cd fastapi-reqres-clone
+    cd fastapi-microservice
 ```
 
 Создайте и активируйте виртуальную среду:
@@ -68,53 +62,60 @@ source .venv/bin/activate  # Для Linux/MacOS
 ```
 ## Запуск приложения
 
-Для того чтобы запустить приложение, используйте команду:
+Чтобы запустить приложение, перейдите в корневую директорию и используйте команду:
 
 ```bash
-  uvicorn microservice:app --reload --port 8000
+   cd app
+   python main.py
 ```
 
-Теперь ваше приложение будет доступно по адресу http://127.0.0.1:8000.
+Приложение будет доступно по адресу http://localhost:8000
 
-API
+## API
 
-Получить список пользователей
-GET /api/users
+**Получить список пользователей**
+GET /api/users/
 
 Возвращает список всех пользователей.
 
 Пример ответа:
 
 ```
-[
-  {
-    "id": 1,
-    "name": "John Doe",
-    "job": "Software Engineer"
-  },
-  {
-    "id": 2,
-    "name": "Jane Smith",
-    "job": "Project Manager"
-  }
-]
+{"results": [
+     {
+       "id": 1,
+       "email": "janet.weaver@fast.api",
+       "first_name": "Janet",
+       "last_name": "Weaver"
+     },
+     {
+       "id": 2,
+       "email": "andrew.green@fast.api",
+       "first_name": "Andrew",
+       "last_name": "Green"
+     }
+   ]
+}
 ```
 
-Получить пользователя по ID
+**Получить пользователя по ID**
 GET /api/users/{user_id}
 
 Получает информацию о пользователе по его ID.
 Пример ответа:
 
 ```
-{
-  "id": 1,
-  "name": "John Doe",
-  "job": "Software Engineer"
+{"results" : {
+      "id": 1,
+      "email": "janet.weaver@fast.api",
+      "first_name": "Janet",
+      "last_name": "Weaver"
+   }
 }
 ```
-Создать нового пользователя
-POST /api/users
+
+**Создать нового пользователя**
+POST /api/users/
 
 Создает нового пользователя.
 
@@ -122,21 +123,27 @@ POST /api/users
 
 ```
 {
-  "name": "Morpheus",
-  "job": "Leader"
-}
+     "email": "testmail@google.com",
+     "first_name": "Jacob",
+     "last_name": "Baskin"
+ }
 ```
 Пример ответа:
 
 ```
 {
-  "id": 3,
-  "name": "Morpheus",
-  "job": "Leader"
+   "message": "User Created",
+   "results": {
+      "id": 5,
+      "email": "testmail@google.com",
+      "first_name": "Jacob",
+      "last_name": "Baskin"
+   }
 }
 ```
-Обновить пользователя
-PUT /api/users/{user_id}
+
+**Обновить пользователя**
+PATCH /api/users/{user_id}
 
 Обновляет информацию о пользователе.
 
@@ -144,44 +151,74 @@ PUT /api/users/{user_id}
 
 ```
 {
-  "name": "Morpheus",
-  "job": "Zion Resident"
+     "email": "newmail@google.com",
+     "first_name": "Robert",
+     "last_name": "Roberts"
 }
 ```
 Пример ответа:
 
 ```
 {
-  "id": 2,
-  "name": "Morpheus",
-  "job": "Zion Resident"
+   "message": "User Successfully Updated",
+   "results": {
+      "id": 3,
+       "email": "newmail@google.com",
+       "first_name": "Robert",
+       "last_name": "Roberts"
+   }
 }
 ```
-Удалить пользователя
-DELETE /api/users/{user_id}
 
-Удаляет пользователя по ID.
+**Удалить пользователя**
+DELETE /api/users/
+
+Удаляет пользователей по ID.
+
+Пример тела запроса:
+```
+{
+     "ids": [3, 4]
+}
+```
 
 Пример ответа:
 
 ```
 {
-  "message": "User deleted successfully"
+   "message": f"Users [3, 4] Successfully Deleted",
+   "results": [
+      {
+       "id": 1,
+       "email": "janet.weaver@fast.api",
+       "first_name": "Janet",
+       "last_name": "Weaver"
+      },
+      {
+       "id": 2,
+       "email": "andrew.green@fast.api",
+       "first_name": "Andrew",
+       "last_name": "Green"
+      }
+   ]
 }
 ```
-Тесты
 
-Для тестирования API используются pytest. Тесты проверяют работу всех эндпоинтов API.
+## Тесты
 
-Запуск тестов
-Для запуска тестов выполните команду:
+Тесты написаны с помощью pytest и моковых данных.
 
-```pytest```
+**Запуск тестов**
+Для запуска тестов перейдите в корневую директорию микросервиса и выполните команду:
 
-Тесты находятся в файле test_api.py и охватывают следующие аспекты:
+```bash
+   cd app
+   pytest
+```
 
-Получение списка пользователей<br>
-Получение пользователя по ID<br>
-Создание нового пользователя<br>
-Обновление пользователя<br>
-Удаление пользователя
+Список тестов:
+-Получить список пользователей
+-Получить пользователя по ID
+-Создать двух пользователей
+-Изменить пользователя
+-Удалить двух пользователей
