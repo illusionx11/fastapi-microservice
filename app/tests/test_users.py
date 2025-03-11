@@ -74,7 +74,7 @@ def test_single_user_get(url: str, user_data: dict):
         f"Ожидалась фамилия {user_data['last_name']}, получена {result['last_name']}"        
 
 @pytest.mark.parametrize("user_data", POST_DATA)
-def test_users_create(url: str, user_data: dict):
+def test_user_create(url: str, user_data: dict):
     
     response = requests.post(f"{url}/api/users/", json=user_data)
     
